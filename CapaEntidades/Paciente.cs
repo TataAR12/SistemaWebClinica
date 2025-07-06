@@ -8,7 +8,7 @@ namespace CapaEntidades
 {
     public class Paciente
     {
-        public int idpaciente { get; set; }
+        public int Idpaciente { get; set; }
         public String Nombres { get; set; }
         public String ApPaterno { get; set; }
         public String ApMaterno { get; set; }
