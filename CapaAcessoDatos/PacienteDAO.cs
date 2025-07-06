@@ -47,18 +47,18 @@ namespace CapaAcessoDatos
                 cmd.Parameters.Add("@prmEstado", objPaciente.Estado);
 
                 con.Open();
-               int filas = cmd.ExecuteNonQuery();
+                int filas = cmd.ExecuteNonQuery();
                 if (filas > 0) response = true;
             }
             catch (Exception ex)
             {
-                response = false; 
+                response = false;
 
                 throw ex;
             }
             finally
-            { 
-            con.Close();
+            {
+                con.Close();
             }
             return response;
 
@@ -79,7 +79,7 @@ namespace CapaAcessoDatos
                 con.Open();
                 dr = cmd.ExecuteReader();
 
-                while(dr.Read())
+                while (dr.Read())
                 {
                     //Crear objetos de tipo Paciente
                     Paciente objPaciente = new Paciente();
@@ -103,14 +103,45 @@ namespace CapaAcessoDatos
                 throw ex;
             }
             finally
-            {  
-                con.Close(); }
+            {
+                con.Close();
+            }
 
 
-        return lista;
+            return lista;
         }
 
+        public bool Actualizar(Paciente objPaciente)
+        {
+            bool ok = false;
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spActualizarDatosPaciente", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prmIdPaciente", objPaciente.Idpaciente);
+                cmd.Parameters.AddWithValue("@prmDireccion", objPaciente.Direccion);
+
+                conexion.Open();
+
+                cmd.ExecuteNonQuery();
+
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+            return ok;
 
 
+
+        }
     }
 }

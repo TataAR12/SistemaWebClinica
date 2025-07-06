@@ -13,7 +13,7 @@ namespace CapaAcessoDatos
     public class EmpleadoDAO
     {
         #region "PATRON SINGLETON"
-        private static EmpleadoDAO daoEmpleado  = null;
+        private static EmpleadoDAO daoEmpleado = null;
         private EmpleadoDAO() { }
         public static EmpleadoDAO getInstance()
         {
@@ -33,12 +33,12 @@ namespace CapaAcessoDatos
             SqlDataReader dr = null;
             try
             {
-                conexion = Conexion.getInstance().ConexionBD ();
-                cmd = new SqlCommand ("spAccesoSistema",conexion);
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spAccesoSistema", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd. Parameters.AddWithValue("@prmUser", user);
+                cmd.Parameters.AddWithValue("@prmUser", user);
                 cmd.Parameters.AddWithValue("@prmPass", pass);
-                conexion.Open ();
+                conexion.Open();
                 dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
@@ -46,7 +46,7 @@ namespace CapaAcessoDatos
                     objEmpleado.ID = Convert.ToInt32(dr["idEmpleado"].ToString());
                     objEmpleado.Usuario = dr["usuario"].ToString();
                     objEmpleado.Clave = dr["Clave"].ToString();
-                   
+
                 }
             }
             catch (Exception ex)
@@ -64,6 +64,6 @@ namespace CapaAcessoDatos
             }
             return objEmpleado;
 
-             }
+        }
     }
 }

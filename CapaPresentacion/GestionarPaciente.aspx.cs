@@ -37,7 +37,17 @@ namespace CapaPresentacion
             return Lista;
         }
 
-
+        [WebMethod]
+        public static bool ActualizarDatosPaciente(String id, String direccion)
+        {
+            Paciente objPaciente = new Paciente()
+                {
+                Idpaciente = Convert.ToInt32(id),
+                Direccion = direccion
+            };
+            bool ok = PacienteLN.getInstance().Actualizar(objPaciente);
+            return true;
+        }
         private Paciente GetEntity()
         {
             Paciente objPaciente = new Paciente();

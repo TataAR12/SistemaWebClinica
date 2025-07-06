@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="GestionarPaciente.aspx.cs" Inherits="CapaPresentacion.frmGestionaPaciente" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="GestionarPaciente.aspx.cs" Inherits="CapaPresentacion.frmGestionaPaciente" ClientIDMode="Static"%>
 <%@ Register Assembly="System.Web.Extensions" Namespace="System.Web.UI" TagPrefix="asp" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -105,7 +105,7 @@
                             <th>Sexo</th>
                             <th>Edad</th>
                             <th>Dirección</th>
-                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tbl_body_table">
@@ -117,6 +117,42 @@
     </div>
 </div>
 
+</section>
 
-    </section>
+<div class="modal fade" id="imodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Actualizar registro</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>NOMBRES Y APELLIDOS</label>
+                </div>
+                <div class="form-group">
+                    <asp:TextBox ID="txtFullName" runat="server" Text="" CssClass="form-control" Enabled="false"></asp:TextBox>
+                </div>
+
+                <div class="form-group">
+                <label>DIRECCIÓN</label>
+                    </div>
+                <div class="form-group">
+                    <asp:TextBox ID="txtModalDireccion" runat="server" Text="" CssClass="form-control"></asp:TextBox>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="btnactualizar">Actualizar</button>
+           </div>
+       </div>
+    </div>
+</div>
 </asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
+
+    <script src="js/paciente.js" type="text/javascript">
+        </script>
+        </asp:Content>

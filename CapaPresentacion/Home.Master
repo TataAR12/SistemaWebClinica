@@ -184,4 +184,5 @@
 <script src="js/AdminLTE/app.js" type="text/javascript"></script>
 <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script src="js/paciente.js"></script>
+<asp:ContentPlaceHolder ID="footer" runat="server" />
 </html>
