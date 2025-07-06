@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.Master" AutoEventWireup="true" CodeBehind="GestionarPaciente.aspx.cs" Inherits="CapaPresentacion.frmGestionaPaciente" %>
+<%@ Register Assembly="System.Web.Extensions" Namespace="System.Web.UI" TagPrefix="asp" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="content-header">
     <h1 style="text-align: center">REGISTRO DE PACIENTES</h1>
@@ -82,8 +85,37 @@
                     </td>
                 </tr>
             </table>
-
         </div>
+        
+        <br />
+<!--Datatable Part -->
+        <div class="row">
+    <div class="col-xs-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Lista de Pacientes</h3>
+            </div>
+            <div class="box-body table-responsive">
+                <table id="tbl_pacientes" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Sexo</th>
+                            <th>Edad</th>
+                            <th>Dirección</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbl_body_table">
+                        <!-- Aquí se llenan los datos con JavaScript o desde el backend -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 
     </section>

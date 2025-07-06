@@ -46,6 +46,7 @@ namespace CapaAcessoDatos
                     objEmpleado.ID = Convert.ToInt32(dr["idEmpleado"].ToString());
                     objEmpleado.Usuario = dr["usuario"].ToString();
                     objEmpleado.Clave = dr["Clave"].ToString();
+                   
                 }
             }
             catch (Exception ex)
