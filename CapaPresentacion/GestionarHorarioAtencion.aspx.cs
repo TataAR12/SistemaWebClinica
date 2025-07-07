@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using CapaEntidades;
+using CapaLogicaNegocio;
 
 namespace CapaPresentacion
 {
@@ -12,6 +15,12 @@ namespace CapaPresentacion
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        [WebMethod]
+        public static Medico BuscarMedico(string dni)
+        {
+            return MedicoLN.getInstance().BuscarMedico(dni);
         }
     }
 }

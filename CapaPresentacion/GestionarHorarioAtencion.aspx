@@ -28,11 +28,11 @@
                     </div>
                     <div class="box-footer">
                         <strong>Nombres</strong>
-                        <asp:Label ID="lblNombres" runat="server" Text="Angie Angie"></asp:Label> <br /><br />
+                        <asp:Label ID="lblNombres" runat="server"></asp:Label> <br /><br />
                         <strong>Apellidos</strong>
-                        <asp:Label ID="lblApellidos" runat="server" Text="Rodriguez Rodriguez"></asp:Label> <br /><br />
+                        <asp:Label ID="lblApellidos" runat="server"></asp:Label> <br /><br />
                         <strong>Especialidad</strong>
-                        <asp:Label ID="lblEspecialidad" runat="server" Text="Médico General"></asp:Label> <br /><br />
+                        <asp:Label ID="lblEspecialidad" runat="server"></asp:Label> <br /><br />
                     </div>
                 </div>
             </div>
@@ -79,4 +79,5 @@
 
 
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
+    <script src="js/horariosmedico.js"></script>
 </asp:Content>
