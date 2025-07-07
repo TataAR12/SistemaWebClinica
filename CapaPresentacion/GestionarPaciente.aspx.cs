@@ -46,7 +46,18 @@ namespace CapaPresentacion
                 Direccion = direccion
             };
             bool ok = PacienteLN.getInstance().Actualizar(objPaciente);
-            return true;
+            return ok;
+        }
+        [WebMethod]
+        public static bool EliminarDatosPaciente(String id)
+        {
+
+            Int32 idPaciente = Convert.ToInt32(id);
+            
+
+           bool ok = PacienteLN.getInstance().Eliminar(idPaciente);
+          
+            return ok;
         }
         private Paciente GetEntity()
         {

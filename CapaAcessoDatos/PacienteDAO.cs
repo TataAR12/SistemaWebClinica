@@ -143,5 +143,34 @@ namespace CapaAcessoDatos
 
 
         }
+    
+    public bool Eliminar(int id)
+        {
+            SqlConnection conexion = null;
+            SqlCommand cmd = null;
+            bool ok = false;
+            try
+            {
+                conexion = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spEliminarPaciente", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@prmIdPaciente", id);
+
+                conexion.Open();
+
+                cmd.ExecuteNonQuery();
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                ok = false;
+                throw ex;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+            return ok;
+        }
     }
 }

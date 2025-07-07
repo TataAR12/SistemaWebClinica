@@ -1,4 +1,5 @@
-﻿var tabla, data;
+﻿var tabla = null;
+var data = null;
 
 function addRowDT(data) {
     tabla = $("#tbl_pacientes").DataTable();
@@ -58,6 +59,28 @@ function updateDataAjax() {
         }
     });
 }
+function deleteDataAjax(data) {
+
+    var obj = JSON.stringify({ id:(data) });
+
+    $.ajax({
+        type: "POST",
+        url: "GestionarPaciente.aspx/EliminarDatosPaciente",
+        data: obj,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (response) {
+            if (response.d) {
+                alert("Datos actualizados correctamente.");
+            } else {
+                alert("Error al actualizar los datos.");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("Error: " + xhr.responseText);
+        }
+    });
+}
 
 $(document).ready(function () {
     $('#tbl_pacientes').DataTable({
@@ -79,7 +102,12 @@ $(document).ready(function () {
     $(document).on('click', '.btn-delete', function (e) {
         e.preventDefault();
         var row = $(this).closest('tr'); // busca la fila padre más cercana
-        var data = tabla.row(row).data(); // usa la nueva API
+        var dataRow = tabla.row(row).data(); // usa la nueva API
+
+        //Enviar el id por medio de ajax
+        deleteDataAjax(dataRow[0]); // Llama a la función de eliminación con el ID del paciente
+        //paso 2: renderizar el datatable
+        sendDataAjax()
 
         
     });

@@ -59,5 +59,17 @@ namespace CapaLogicaNegocio
                 throw ex;
             }
         }
+        public bool Eliminar(int id)
+        {
+            try
+            {
+                return PacienteDAO.getInstance().Eliminar(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
+
 }
