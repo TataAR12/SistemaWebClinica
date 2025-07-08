@@ -45,25 +45,25 @@
                         <h3 class="box-title">Horario de Atención</h3>
                     </div>
                     <div class="box-body table table-responsive">
-                        <table id="tbl_pacientes" class="table table-bordered table-hover">
+                        <table id="tbl_horarios" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th></th>
                                     <th>FECHA DE ATENCIÓN</th>
                                     <th>HORA DE ATENCIÓN</th>
-                                    <thstyle="display: none">ESTADO</thstyle="display:>
+                                   <!-- <th style="display: none">ESTADO</th>-->
                                 </tr>
                             </thead>
                             <tbody id="tbl_body_table">
                                 <!-- Aquí se llenan los datos con JavaScript o desde el backend -->
-                                <tr>
+                                 <%--<tr>
                                     <td>boton-editar</td>
                                     <td>editar-eliminar</td>
                                     <td>campo-fecha</td>
                                     <td>campo-hora</td>
                                     <td style="display: none">estado</td>
-                                </tr>
+                                </tr>--%>
                             </tbody>
                         </table>
                     </div>
