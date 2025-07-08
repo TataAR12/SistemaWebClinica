@@ -22,5 +22,13 @@ namespace CapaPresentacion
         {
             return MedicoLN.getInstance().BuscarMedico(dni);
         }
+
+        [WebMethod]
+        public static string AgregarHorario(String fecha, String hora)
+        {
+            return "";
+            //Llamar a la capa negocio
+        }
+
     }
 }

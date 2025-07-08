@@ -117,6 +117,7 @@
         </div>
     </div>
 </div>
+    <input type="hidden" id="txtIdMedico" />
 
 <!-- fin -->
    
