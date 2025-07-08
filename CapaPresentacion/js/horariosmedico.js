@@ -17,7 +17,7 @@ $("#bntBuscar").on("click", function (event) {
             data: obj,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function (data) { //IdMedico
+            success: function (data) { 
                 console.log("éxito", data);
                 var medico = data.d;
 
@@ -68,6 +68,8 @@ $("#btnAgregar").on("click", function (event) {
             dataType: 'json',
             success: function (data) {
                 console.log("éxito", data);
+                //Cerrar ventana modal usando jQuery
+                $("#AgregarHorario").modal('toggle');
                 
             },
             error: function (xhr, ajaxOptions, thrownError) {

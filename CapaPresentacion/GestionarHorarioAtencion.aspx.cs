@@ -24,9 +24,22 @@ namespace CapaPresentacion
         }
 
         [WebMethod]
-        public static string AgregarHorario(String fecha, String hora)
+        public static HorarioAtencion AgregarHorario(String fecha, String hora, String idmedico)
         {
-            return "";
+            HorarioAtencion objHorarioAtencion = new HorarioAtencion()
+            {
+                Fecha = Convert.ToDateTime(fecha),
+                Hora = new Hora()
+                {
+                    hora = hora
+                },
+                Medico = new Medico()
+                {
+                    IdMedico = Convert.ToInt32(idmedico)
+                },
+            };
+
+            return HorarioAtencionLN.getInstance().RegistrarHorarioAtencion(objHorarioAtencion);
             //Llamar a la capa negocio
         }
 
