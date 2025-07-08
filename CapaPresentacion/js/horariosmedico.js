@@ -1,4 +1,9 @@
-﻿$("#bntBuscar").on("click", function (event) {
+﻿//Configuracion de timepiker y date
+$("[data-mask]").inputmask();
+$(".timepicker").timepicker({ showInputs: false, showMeridiam: false, minuteStep: 30 });
+
+
+$("#bntBuscar").on("click", function (event) {
     event.preventDefault();
 
     var dni = $("#txtDni").val();
