@@ -193,7 +193,7 @@ $("#btnEditar").click(function (e) {
         success: function (response) {
             if (response.d) {
                 $("#imodal").modal('hide');
-                listHorarios(idmedico); // ✅ Usar variable original
+                listHorarios(idmedico); //  Usar variable original
                 console.log("Datos actualizados correctamente");
             } else {
                 alert("Error al actualizar los datos.");
@@ -220,7 +220,7 @@ function deleteDataAjax(id, row) {
             if (response.d) {
                 console.log("Datos eliminados correctamente");
                 alert("Datos eliminados correctamente.");
-                tabla.row(row).remove().draw(); // ✅ Eliminar directamente la fila
+                tabla.row(row).remove().draw(); //  Eliminar directamente la fila
             } else {
                 alert("Error al eliminar los datos.");
             }
