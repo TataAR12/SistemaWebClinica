@@ -3,6 +3,31 @@ $("[data-mask]").inputmask();
 $(".timepicker").timepicker({ showInputs: false, showMeridiam: false, minuteStep: 30 });
 
 var tabla;
+function iniDataTable() {
+    if (!$.fn.DataTable.isDataTable("#tbl_horarios")) {
+        tabla = $("#tbl_horarios").DataTable({
+            "aaSorting": [[0, 'desc']],
+            "bSort": true,
+            "aoColumns": [
+                { "bSortable": false },
+                { "bSortable": false },
+                { "bSortable": false },
+                null,
+                null
+            ]
+        });
+    } else {
+        tabla = $("#tbl_horarios").DataTable(); // reutiliza instancia si ya existe
+    }
+    tabla.column(2).visible(false);
+}
+
+$('#AgregarHorario').on('shown.bs.modal', function () {
+    iniDataTable();
+});
+$(document).ready(function () {
+    iniDataTable();
+});
 
 $("#bntBuscar").on("click", function (event) {
     event.preventDefault();
@@ -22,11 +47,12 @@ $("#bntBuscar").on("click", function (event) {
                 console.log("éxito", data);
                 var medico = data.d;
 
-                llenarDatosMedico(medico);
+                llenarDatosMedico(data.d);
+                listHorarios(data.d.IdMedico); 
 
-                $("#lblNombres").text(medico.Nombre);
-                $("#lblApellidos").text(medico.ApPaterno + " " + medico.ApMaterno);
-                $("#lblEspecialidad").text(medico.Especialidad.Descripcion);
+                //$("#lblNombres").text(medico.Nombre);
+                //$("#lblApellidos").text(medico.ApPaterno + " " + medico.ApMaterno);
+                //$("#lblEspecialidad").text(medico.Especialidad.Descripcion);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 console.log("Error: " + xhr.responseText);
@@ -72,7 +98,7 @@ $("#btnAgregar").on("click", function (event) {
                 //Cerrar ventana modal usando jQuery
                 $("#AgregarHorario").modal('toggle');
                 console.log("Contenido real recibido:", data.d.Hora);
-      
+
                 addRow(data.d);
             
                 
@@ -87,37 +113,15 @@ $("#btnAgregar").on("click", function (event) {
     }
 });
 
-function iniDataTable() {
-    if (!$.fn.DataTable.isDataTable("#tbl_horarios")) {
-        tabla = $("#tbl_horarios").DataTable({
-            "aaSorting": [[0, 'desc']],
-            "bSort": true,
-            "aoColumns": [
-                { "bSortable": false },
-                { "bSortable": false },
-                null,
-                null,
-            ]
-        });
-    } else {
-        tabla = $("#tbl_horarios").DataTable(); // reutiliza instancia si ya existe
-    }
-}
-
-$('#AgregarHorario').on('shown.bs.modal', function () {
-    iniDataTable();
-});
-$(document).ready(function () {
-    iniDataTable();
-});
 function addRow(obj) {
-    console.log(obj)
+
     var fechaFormateada = formatDate(obj.Fecha);
     tabla.row.add([
         '<button value="Actualizar" title="Actualizar" class="btn btn-primary btn-edit" data-target="#imodal" data-toggle="modal"><i class="fa fa-refresh" aria-hidden="true"></i></button>&nbsp;',
         '<button value="Eliminar" title="Eliminar" class="btn btn-danger btn-delete"><i class="fa fa-times" aria-hidden="true"></i></button>',
+        obj.IdHorarioAtencion,
         fechaFormateada,
-        obj.Hora.hora 
+        obj.Hora.hora
     ]).draw();
 }
 
@@ -129,3 +133,52 @@ function formatDate(date) {
     var anio = fechaReal.getFullYear();
     return dia + "/" + mes + "/" + anio;
 }
+
+
+function listHorarios(idmedico) {
+    iniDataTable();
+    var obj = JSON.stringify({ idmedico: idmedico });
+
+    $.ajax({
+        type: "POST",
+        url: "GestionarHorarioAtencion.aspx/ListarHorariosAtencion",
+        data: obj,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (data) {
+            console.log("éxito", data);
+
+            // Limpia la tabla antes de agregar nuevas filas
+            tabla.clear().draw();
+
+            for (var i = 0; i < data.d.length; i++) {
+                addRow(data.d[i]);
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("Error: " + xhr.responseText);
+        }
+    });
+}
+
+
+$(document).on('click', '.btn-edit', function (e) {
+    e.preventDefault();
+
+    var row = $(this).closest('tr');      
+    data = tabla.row(row).data();     
+    fillModalData(data);                  
+});
+
+//Evento click para botón eliminar registros
+$(document).on('click', '.btn-delete', function (e) {
+    e.preventDefault();
+    var row = $(this).closest('tr'); // busca la fila padre más cercana
+    var dataRow = tabla.row(row).data(); // usa la nueva API
+
+    //Enviar el id por medio de ajax
+   //eleteDataAjax(dataRow[0]); 
+    sendDataAjax()
+
+
+});

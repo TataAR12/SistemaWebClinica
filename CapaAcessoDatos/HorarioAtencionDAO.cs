@@ -72,5 +72,51 @@ namespace CapaAcessoDatos
 
             return objHorario;
         }
+
+        public List<HorarioAtencion> Listar(Int32 idMedico) 
+        {
+            SqlConnection connection = Conexion.getInstance().ConexionBD();
+            SqlCommand cmd = null;
+            SqlDataReader dr = null;
+            List<HorarioAtencion> Lista = null;
+
+            try
+            {
+                cmd = new SqlCommand("spListarHorariosAtencion", connection);
+                cmd.Parameters.AddWithValue("@prmIdMedico", idMedico);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                connection.Open();
+
+                dr = cmd.ExecuteReader();
+
+                Lista = new List<HorarioAtencion>();
+
+                while (dr.Read())
+                {
+                    //llamamos los objetos 
+                    HorarioAtencion objHorario = new HorarioAtencion();
+                    objHorario.IdHorarioAtencion = Convert.ToInt32(dr["idHorarioAtencion"].ToString());
+                    objHorario.Fecha = Convert.ToDateTime(dr["fecha"].ToString());
+                    objHorario.Hora = new Hora()
+                    {
+                        hora = dr["hora"].ToString()
+                    };
+                    Lista.Add(objHorario);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return Lista;
+        }
+       
+
     }    
 }

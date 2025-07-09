@@ -43,5 +43,12 @@ namespace CapaPresentacion
             //Llamar a la capa negocio
         }
 
+        [WebMethod]
+        public static List<HorarioAtencion> ListarHorariosAtencion(String idmedico)
+        {
+            Int32 idMedico = Convert.ToInt32(idmedico);
+
+            return HorarioAtencionLN.getInstance().Listar(idMedico);
+        }
     }
 }

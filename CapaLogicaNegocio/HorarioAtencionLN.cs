@@ -11,7 +11,7 @@ namespace CapaLogicaNegocio
 {
     public class HorarioAtencionLN
     {
-            #region "PATRON SINGLETON"
+        #region "PATRON SINGLETON"
         private static HorarioAtencionLN horarioAtencion = null;
         private HorarioAtencionLN() { }
         public static HorarioAtencionLN getInstance()
@@ -24,16 +24,28 @@ namespace CapaLogicaNegocio
         }
         #endregion
 
-        public HorarioAtencion RegistrarHorarioAtencion(HorarioAtencion objHorarioAtencion) 
+        public HorarioAtencion RegistrarHorarioAtencion(HorarioAtencion objHorarioAtencion)
         {
-            try 
+            try
             {
                 return HorarioAtencionDAO.getInstance().RegistrarHorarioAtencion(objHorarioAtencion);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<HorarioAtencion> Listar(Int32 idMedico)
+        {
+            try
+            {
+                return HorarioAtencionDAO.getInstance().Listar(idMedico);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
     }
 }
+

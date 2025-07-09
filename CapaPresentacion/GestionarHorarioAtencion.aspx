@@ -50,9 +50,9 @@
                                 <tr>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                     <th>FECHA DE ATENCIÓN</th>
                                     <th>HORA DE ATENCIÓN</th>
-                                   <!-- <th style="display: none">ESTADO</th>-->
                                 </tr>
                             </thead>
                             <tbody id="tbl_body_table">
