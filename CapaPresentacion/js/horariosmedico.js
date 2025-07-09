@@ -114,11 +114,10 @@ $("#btnAgregar").on("click", function (event) {
 });
 
 function addRow(obj) {
-
     var fechaFormateada = formatDate(obj.Fecha);
     tabla.row.add([
-        '<button value="Actualizar" title="Actualizar" class="btn btn-primary btn-edit" data-target="#imodal" data-toggle="modal"><i class="fa fa-refresh" aria-hidden="true"></i></button>&nbsp;',
-        '<button value="Eliminar" title="Eliminar" class="btn btn-danger btn-delete"><i class="fa fa-times" aria-hidden="true"></i></button>',
+        '<button title="Actualizar" class="btn btn-primary btn-edit" data-target="#imodal" data-toggle="modal"><i class="fa fa-refresh" aria-hidden="true"></i></button>&nbsp;',
+        '<button title="Eliminar" class="btn btn-danger btn-delete" data-id="' + obj.IdHorarioAtencion + '"><i class="fa fa-times" aria-hidden="true"></i></button>',
         obj.IdHorarioAtencion,
         fechaFormateada,
         obj.Hora.hora
@@ -173,12 +172,78 @@ $(document).on('click', '.btn-edit', function (e) {
 //Evento click para botón eliminar registros
 $(document).on('click', '.btn-delete', function (e) {
     e.preventDefault();
-    var row = $(this).closest('tr'); // busca la fila padre más cercana
-    var dataRow = tabla.row(row).data(); // usa la nueva API
 
-    //Enviar el id por medio de ajax
-   //eleteDataAjax(dataRow[0]); 
-    sendDataAjax()
+    var row = $(this).closest('tr'); 
+    var dataRow = tabla.row(row).data(); 
 
+    console.log(dataRow[2]);
+    deleteDataAjax(dataRow[2]);
+   // listHorarios("#txtMedico").val();
 
 });
+
+//Evento click para botón editar registros
+$(document).on('click', '.btn-edit', function (e) {
+    e.preventDefault();
+
+    var row = $(this).closest('tr');
+    var dataRow = tabla.row(row).data();
+    llenarDatosHorario(dataRow);
+    
+});
+
+function updateDataAjax() {
+
+    var obj = JSON.stringify({
+        idmedico: $("#txtMedico").val(),
+        idhorario: JSON.stringify(data[2]),
+        fecha: $("#txtEditarFecha").val(),
+        hora: $("#txtEditarHora").val()
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "GestionarHorarioAtencion.aspx/ActualizarHorarioAtencion",
+        data: obj,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (response) {
+            if (response.d) {
+                alert("Datos actualizados correctamente.");
+            } else {
+                alert("Error al actualizar los datos.");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("Error: " + xhr.responseText);
+        }
+    });
+}
+/////////////////////////////////////////////////////////////////////
+function deleteDataAjax(data) {
+
+    var obj = JSON.stringify({ id: parseInt(data) });
+
+    $.ajax({
+        type: "POST",
+        url: "GestionarHorarioAtencion.aspx/EliminarHorarioAtencion",
+        data: obj,
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function (response) {
+            if (response.d) {
+                alert("Datos actualizados correctamente.");
+                listHorarios($("#txtIdMedico").val());
+            } else {
+                alert("Error al actualizar los datos.");
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            console.log("ERROR AJAX:");
+            console.log("Status:", xhr.status);
+            console.log("Response:", xhr.responseText);
+            console.log("Thrown Error:", thrownError);
+            alert("Hubo un error al eliminar. Revisa la consola.");
+        }
+    });
+}

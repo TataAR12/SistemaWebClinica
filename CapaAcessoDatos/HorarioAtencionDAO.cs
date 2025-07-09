@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CapaEntidades;
 using System.Diagnostics.Eventing.Reader;
 using System.Timers;
+using System.CodeDom;
 
 namespace CapaAcessoDatos
 {
@@ -116,7 +117,67 @@ namespace CapaAcessoDatos
             }
             return Lista;
         }
-       
 
+        public bool Eliminar(int idHorarioAtencion)
+        {
+            SqlConnection conexion = Conexion.getInstance().ConexionBD();
+            SqlCommand cmd = null;
+            bool ok = false;
+            try
+            {
+
+                cmd = new SqlCommand("spEliminarHorarioAtencion", conexion);
+                cmd.Parameters.AddWithValue("@prmIdHorarioAtencion", idHorarioAtencion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                conexion.Open();
+                cmd.ExecuteNonQuery();
+    
+            }
+            catch (Exception ex)
+            {
+                ok = true;
+                throw ex;
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+            return ok;
+        }
+
+        public bool Editar(HorarioAtencion objHorario)
+        {
+            SqlConnection conexion = Conexion.getInstance().ConexionBD();
+            SqlCommand cmd = null;
+            bool ok = false;
+
+            try
+            {
+                cmd = new SqlCommand("spActualizarHorarioAtencion", conexion);
+                cmd.Parameters.AddWithValue("@prmIdMedico", objHorario.Medico.IdMedico);
+                cmd.Parameters.AddWithValue("@prmIdHorario", objHorario.IdHorarioAtencion);
+                cmd.Parameters.AddWithValue("@prmFecha", objHorario.Fecha);
+                cmd.Parameters.AddWithValue("@prmHora", objHorario.Hora.hora);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                conexion.Open();
+                cmd.ExecuteNonQuery();
+
+                ok = true;
+            }
+            catch (Exception ex)
+            {
+                ok = false;
+                throw ex;
+
+            }
+            finally
+            {
+                conexion.Close();
+            }
+            return ok;
+        }     
     }    
 }
