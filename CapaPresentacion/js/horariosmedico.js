@@ -49,6 +49,12 @@ $(document).ready(function () {
         llenarDatosHorario(dataRow);
     });
 });
+function llenarDatosHorario(data) {
+    $("#txtEditarFecha").val(data[3]);
+    $("#txtEditarHora").val(data[4]);
+    $("#txtIdHorario").val(data[2]);
+  
+}
 
 $("#bntBuscar").on("click", function (event) {
     event.preventDefault();
@@ -141,7 +147,7 @@ function formatDate(date) {
 function listHorarios(idmedico) {
     iniDataTable();
     var obj = JSON.stringify({ idmedico: idmedico });
-
+    console.log(obj)
     $.ajax({
         type: "POST",
         url: "GestionarHorarioAtencion.aspx/ListarHorariosAtencion",
@@ -161,12 +167,21 @@ function listHorarios(idmedico) {
 }
 
 // ACTUALIZACIÓN AJAX
-function updateDataAjax() {
+
+
+$("#btnEditar").click(function (e) {
+    e.preventDefault();
+
+    var idmedico = $("#txtMedico").val();
+    var idhorario = $("#txtIdHorario").val();
+    var fecha = $("#txtEditarFecha").val();
+    var hora = $("#txtEditarHora").val();
+
     var obj = JSON.stringify({
-        idmedico: $("#txtMedico").val(),
-        idhorario: JSON.stringify(data[2]),
-        fecha: $("#txtEditarFecha").val(),
-        hora: $("#txtEditarHora").val()
+        idmedico: idmedico,
+        idhorario: idhorario,
+        fecha: fecha,
+        hora: hora
     });
 
     $.ajax({
@@ -177,6 +192,8 @@ function updateDataAjax() {
         dataType: 'json',
         success: function (response) {
             if (response.d) {
+                $("#imodal").modal('hide');
+                listHorarios(idmedico); // ✅ Usar variable original
                 console.log("Datos actualizados correctamente");
             } else {
                 alert("Error al actualizar los datos.");
@@ -186,9 +203,9 @@ function updateDataAjax() {
             console.log("Error: " + xhr.responseText);
         }
     });
-}
+});
 
-// ELIMINAR AJAX (mejorado)
+// ELIMINAR AJAX ()
 function deleteDataAjax(id, row) {
     console.log("Entrando a deleteDataAjax con ID:", id);
     var obj = JSON.stringify({ id: parseInt(id) });

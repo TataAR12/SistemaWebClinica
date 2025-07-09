@@ -78,7 +78,7 @@ namespace CapaPresentacion
                     IdMedico = idMedico
                 }
             };
-            return HorarioAtencionLN.getInstance().Editar(objHorario) != null;
+            return HorarioAtencionLN.getInstance().Editar(objHorario);
         }
     }
 }
