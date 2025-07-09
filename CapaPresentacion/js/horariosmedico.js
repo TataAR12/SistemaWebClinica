@@ -1,8 +1,9 @@
-﻿//Configuracion de timepiker y date
+﻿// Configuración de timepicker y date
 $("[data-mask]").inputmask();
 $(".timepicker").timepicker({ showInputs: false, showMeridiam: false, minuteStep: 30 });
 
 var tabla;
+
 function iniDataTable() {
     if (!$.fn.DataTable.isDataTable("#tbl_horarios")) {
         tabla = $("#tbl_horarios").DataTable({
@@ -25,8 +26,28 @@ function iniDataTable() {
 $('#AgregarHorario').on('shown.bs.modal', function () {
     iniDataTable();
 });
+
 $(document).ready(function () {
     iniDataTable();
+
+    //  Registrar evento eliminar solo una vez
+    $(document).off('click', '.btn-delete').on('click', '.btn-delete', function (e) {
+        e.preventDefault();
+
+        var row = $(this).closest('tr');
+        var dataRow = tabla.row(row).data();
+        console.log("ID horario a eliminar:", dataRow[2]);
+        deleteDataAjax(dataRow[2], row);
+    });
+
+    //  Registrar evento editar solo una vez
+    $(document).off('click', '.btn-edit').on('click', '.btn-edit', function (e) {
+        e.preventDefault();
+
+        var row = $(this).closest('tr');
+        var dataRow = tabla.row(row).data();
+        llenarDatosHorario(dataRow);
+    });
 });
 
 $("#bntBuscar").on("click", function (event) {
@@ -36,25 +57,21 @@ $("#bntBuscar").on("click", function (event) {
     var obj = JSON.stringify({ dni: dni });
 
     if (dni.length > 0) {
-        //Llamada ajax
         $.ajax({
             type: "POST",
             url: "GestionarHorarioAtencion.aspx/BuscarMedico",
             data: obj,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            success: function (data) { 
+            success: function (data) {
                 console.log("éxito", data);
                 var medico = data.d;
 
-                llenarDatosMedico(data.d);
-                listHorarios(data.d.IdMedico); 
-
-                //$("#lblNombres").text(medico.Nombre);
-                //$("#lblApellidos").text(medico.ApPaterno + " " + medico.ApMaterno);
-                //$("#lblEspecialidad").text(medico.Especialidad.Descripcion);
+                llenarDatosMedico(medico);
+                $("#txtMedico").val(medico.IdMedico);
+                listHorarios(medico.IdMedico);
             },
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function (xhr) {
                 console.log("Error: " + xhr.responseText);
             }
         });
@@ -62,7 +79,6 @@ $("#bntBuscar").on("click", function (event) {
         console.log("No ha ingresado un dni");
     }
 });
-
 
 function llenarDatosMedico(obj) {
     $("#lblNombres").text(obj.Nombre || "");
@@ -72,21 +88,16 @@ function llenarDatosMedico(obj) {
     $("#txtIdMedico").val(obj.IdMedico || 0);
 }
 
-// Agregar horario
 $("#btnAgregar").on("click", function (event) {
     event.preventDefault();
 
-    // Obtener los valores de los campos
     var fecha = $("#txtFecha").val();
     var hora = $("#txtHoraInicio").val();
     var idmedico = $("#txtIdMedico").val();
 
-    console.log("ID Médico:", idmedico);
-
     if (fecha.length > 0 && hora.length > 0 && idmedico > 0) {
-        var obj = JSON.stringify({ fecha: fecha, hora: hora, idmedico: idmedico }); 
+        var obj = JSON.stringify({ fecha: fecha, hora: hora, idmedico: idmedico });
 
-        // Llamada AJAX
         $.ajax({
             type: "POST",
             url: "GestionarHorarioAtencion.aspx/AgregarHorario",
@@ -94,16 +105,10 @@ $("#btnAgregar").on("click", function (event) {
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-                console.log("éxito", data);
-                //Cerrar ventana modal usando jQuery
                 $("#AgregarHorario").modal('toggle');
-                console.log("Contenido real recibido:", data.d.Hora);
-
                 addRow(data.d);
-            
-                
             },
-            error: function (xhr, ajaxOptions, thrownError) {
+            error: function (xhr) {
                 console.log("Error: " + xhr.responseText);
             }
         });
@@ -133,7 +138,6 @@ function formatDate(date) {
     return dia + "/" + mes + "/" + anio;
 }
 
-
 function listHorarios(idmedico) {
     iniDataTable();
     var obj = JSON.stringify({ idmedico: idmedico });
@@ -145,55 +149,19 @@ function listHorarios(idmedico) {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function (data) {
-            console.log("éxito", data);
-
-            // Limpia la tabla antes de agregar nuevas filas
             tabla.clear().draw();
-
             for (var i = 0; i < data.d.length; i++) {
                 addRow(data.d[i]);
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function (xhr) {
             console.log("Error: " + xhr.responseText);
         }
     });
 }
 
-
-$(document).on('click', '.btn-edit', function (e) {
-    e.preventDefault();
-
-    var row = $(this).closest('tr');      
-    data = tabla.row(row).data();     
-    fillModalData(data);                  
-});
-
-//Evento click para botón eliminar registros
-$(document).on('click', '.btn-delete', function (e) {
-    e.preventDefault();
-
-    var row = $(this).closest('tr'); 
-    var dataRow = tabla.row(row).data(); 
-
-    console.log(dataRow[2]);
-    deleteDataAjax(dataRow[2]);
-   // listHorarios("#txtMedico").val();
-
-});
-
-//Evento click para botón editar registros
-$(document).on('click', '.btn-edit', function (e) {
-    e.preventDefault();
-
-    var row = $(this).closest('tr');
-    var dataRow = tabla.row(row).data();
-    llenarDatosHorario(dataRow);
-    
-});
-
+// ACTUALIZACIÓN AJAX
 function updateDataAjax() {
-
     var obj = JSON.stringify({
         idmedico: $("#txtMedico").val(),
         idhorario: JSON.stringify(data[2]),
@@ -209,20 +177,21 @@ function updateDataAjax() {
         dataType: 'json',
         success: function (response) {
             if (response.d) {
-                alert("Datos actualizados correctamente.");
+                console.log("Datos actualizados correctamente");
             } else {
                 alert("Error al actualizar los datos.");
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function (xhr) {
             console.log("Error: " + xhr.responseText);
         }
     });
 }
-/////////////////////////////////////////////////////////////////////
-function deleteDataAjax(data) {
 
-    var obj = JSON.stringify({ id: parseInt(data) });
+// ELIMINAR AJAX (mejorado)
+function deleteDataAjax(id, row) {
+    console.log("Entrando a deleteDataAjax con ID:", id);
+    var obj = JSON.stringify({ id: parseInt(id) });
 
     $.ajax({
         type: "POST",
@@ -232,17 +201,15 @@ function deleteDataAjax(data) {
         dataType: 'json',
         success: function (response) {
             if (response.d) {
-                alert("Datos actualizados correctamente.");
-                listHorarios($("#txtIdMedico").val());
+                console.log("Datos eliminados correctamente");
+                alert("Datos eliminados correctamente.");
+                tabla.row(row).remove().draw(); // ✅ Eliminar directamente la fila
             } else {
-                alert("Error al actualizar los datos.");
+                alert("Error al eliminar los datos.");
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
-            console.log("ERROR AJAX:");
-            console.log("Status:", xhr.status);
-            console.log("Response:", xhr.responseText);
-            console.log("Thrown Error:", thrownError);
+        error: function (xhr) {
+            console.log("ERROR AJAX:", xhr.responseText);
             alert("Hubo un error al eliminar. Revisa la consola.");
         }
     });

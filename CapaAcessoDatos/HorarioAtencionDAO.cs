@@ -132,11 +132,12 @@ namespace CapaAcessoDatos
 
                 conexion.Open();
                 cmd.ExecuteNonQuery();
-    
+                ok = true;
+
             }
             catch (Exception ex)
             {
-                ok = true;
+                ok = false;
                 throw ex;
             }
             finally
