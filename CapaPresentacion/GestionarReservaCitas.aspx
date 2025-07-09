@@ -18,7 +18,7 @@
                             <label>DOCUMENTO DE IDENTIDAD</label>
                         </div>
                         <div class="input-group">
-                            <asp:TextBox ID="txtDNI" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtDNI" CssClass="form-control" runat="server" MaxLength="8"></asp:TextBox>
                             <div class="input-group-btn">
                                 <asp:Button ID="btnBuscar" runat="server" CssClass="btn btn-danger" Text="BUSCAR" />
                             </div>
@@ -115,6 +115,7 @@
 
         </div>
     </section>
+    <input id="idPaciente" type="hidden"/> 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
     <script src="js/reserva.js"></script>
