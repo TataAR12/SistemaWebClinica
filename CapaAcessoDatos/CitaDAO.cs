@@ -57,5 +57,53 @@ namespace CapaAcessoDatos
 
         }
 
+        public List<Cita> ListarCitas()
+        {
+            SqlConnection con = null;
+            SqlCommand cmd = null;
+            SqlDataReader dr = null;
+            List<Cita> ListaCitas = new List<Cita>();
+
+            try
+            {
+                con = Conexion.getInstance().ConexionBD();
+                cmd = new SqlCommand("spListarCitas", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                con.Open();
+                dr = cmd.ExecuteReader();
+                while(dr.Read())
+                {
+                    // Llenar La lista con las citas
+                    Cita cita = new Cita();
+                    cita.IdCita = Convert.ToInt32(dr["idCita"].ToString());
+                    cita.Medico.IdMedico = Convert.ToInt32(dr["idMedico"].ToString());
+                    cita.Paciente.IdPaciente = Convert.ToInt32(dr["idPaciente"].ToString());
+                    cita.FechaReserva = Convert.ToDateTime(dr["fechaReserva"].ToString());
+                    cita.Hora = dr["hora"].ToString();
+
+                    cita.Paciente.Nombres = dr["nombres"].ToString();
+                    cita.Paciente.ApPaterno = dr["apPaterno"].ToString();
+                    cita.Paciente.ApMaterno = dr["apMaterno"].ToString();
+                    cita.Paciente.Edad = Convert.ToInt32(dr["edad"].ToString());
+                    cita.Paciente.Sexo = Convert.ToChar(dr["sexo"].ToString());
+                    cita.Paciente.NroDocumento = dr["nroDocumento"].ToString();
+                    cita.Paciente.Direccion = dr["direccion"].ToString();
+
+                    ListaCitas.Add(cita);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return ListaCitas;
+        }
     }
 }

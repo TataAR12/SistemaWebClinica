@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<section class="content-header">
+ <section class="content-header">
     <div class="text-center">
         <h1>GESTIONAR ATENCIÓN MÉDICA</h1>
     </div>
@@ -22,9 +22,9 @@
                             <asp:Label ID="lblIdCita" runat="server" Text="" Font-Size="Medium"></asp:Label>
                             <strong>&nbsp;&nbsp;Nombres:</strong>
                             <asp:Label ID="lblNombres" runat="server" Text="" Font-Size="Medium"></asp:Label>
-                            <strong>&nbsp;&nbsp;Apellido Paterno:</strong>
+                            <strong>&nbsp;&nbsp;Primer Apellido:</strong>
                             <asp:Label ID="lblApellidoPaterno" runat="server" Text="" Font-Size="Medium"></asp:Label>
-                            <strong>&nbsp;&nbsp;Apellido Materno:</strong>
+                            <strong>&nbsp;&nbsp;Segundo Apellido:</strong>
                             <asp:Label ID="lblApellidoMaterno" runat="server" Text="" Font-Size="Medium"></asp:Label>
                             <strong>&nbsp;&nbsp;Edad:</strong>
                             <asp:Label ID="lblEdad" runat="server" Text="" Font-Size="Medium"></asp:Label>
