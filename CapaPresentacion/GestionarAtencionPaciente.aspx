@@ -44,12 +44,12 @@
                             <asp:Image ID="imgPaciente" runat="server" Height="200px" Width="200px" ImageUrl="~/img/avatar2.png" />
                         </td>
                         <td>
-                            <span class="etiqueta"><span class="info-paciente">ID Cita:</span> <asp:Label ID="lblIdCita" runat="server" Text=""></asp:Label></span>
-                            <span class="etiqueta"><span class="info-paciente">Nombres:</span> <asp:Label ID="lblNombres" runat="server" Text=""></asp:Label></span>
-                            <span class="etiqueta"><span class="info-paciente">Apellido Paterno:</span> <asp:Label ID="lblApellidoPaterno" runat="server" Text=""></asp:Label></span>
-                            <span class="etiqueta"><span class="info-paciente">Apellido Materno:</span> <asp:Label ID="lblApellidoMaterno" runat="server" Text=""></asp:Label></span>
-                            <span class="etiqueta"><span class="info-paciente">Edad:</span> <asp:Label ID="lblEdad" runat="server" Text=""></asp:Label></span>
-                            <span class="etiqueta"><span class="info-paciente">Sexo:</span> <asp:Label ID="lblSexo" runat="server" Text=""></asp:Label></span>
+                            <span class="etiqueta"><span class="info-paciente">ID Cita:</span> <asp:Label ID="lblIdCita" runat="server" Text='<%#Eval("IdCita") %>'></asp:Label></span>
+                            <span class="etiqueta"><span class="info-paciente">Nombres:</span> <asp:Label ID="lblNombres" runat="server" Text='<%#Eval("Paciente.Nombres") %>'></asp:Label></span>
+                            <span class="etiqueta"><span class="info-paciente">Primer Apellido:</span> <asp:Label ID="lblApellidoPaterno" runat="server" Text='<%#Eval("Paciente.ApPaterno") %>'></asp:Label></span>
+                            <span class="etiqueta"><span class="info-paciente">Segundo Apellido:</span> <asp:Label ID="lblApellidoMaterno" runat="server" Text='<%#Eval("Paciente.ApMaterno") %>'></asp:Label></span>
+                            <span class="etiqueta"><span class="info-paciente">Edad:</span> <asp:Label ID="lblEdad" runat="server" Text='<%#Eval("Paciente.Edad") %>'></asp:Label></span>
+                            <span class="etiqueta"><span class="info-paciente">Sexo:</span> <asp:Label ID="lblSexo" runat="server" Text='<%#(Eval("Paciente.Sexo").ToString() == "M"?"Masculino":"Femenino") %>'></asp:Label></span>
                         </td>
                     </tr>
                     <tr>
@@ -61,7 +61,7 @@
                     <tr>
                         <td>
                             <label><strong>Hora de Atención:</strong></label>
-                            <asp:Label ID="lblHora" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="lblHora" runat="server" Text='<%#Eval("Hora") %>'></asp:Label>
                         </td>
                     </tr>
                 </table>
