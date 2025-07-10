@@ -63,6 +63,7 @@ namespace CapaPresentacion
         {
             //ejecutar el guardado de la reserva
             bool isSelected = HorarioAtencionSeleccionado();
+
             if (!idPaciente.Value.Equals(string.Empty) && isSelected)
             {
                 Cita objCita = ObtenerCitaSeleccionada();
@@ -96,6 +97,9 @@ namespace CapaPresentacion
         private Cita ObtenerCitaSeleccionada()
         {
             Cita objCita = new Cita();
+            objCita.Paciente = new Paciente(); // ← inicializar
+            objCita.Medico = new Medico();     // ← inicializar
+
             foreach (GridViewRow row in grdHorarioAtencion.Rows)
             {
                 CheckBox chkHorario = (row.FindControl("chkSeleccionar") as CheckBox);
@@ -103,6 +107,7 @@ namespace CapaPresentacion
                 {
                     objCita.Hora = (row.FindControl("lblHora") as Label).Text;
                     objCita.FechaReserva = DateTime.Now;
+
                     objCita.Paciente.IdPaciente = Convert.ToInt32(idPaciente.Value);
 
                     string idMedico = (row.FindControl("hfIdMedico") as HiddenField).Value;
@@ -111,7 +116,7 @@ namespace CapaPresentacion
                     break;
                 }
             }
-              return objCita;
+            return objCita;
         }
 
     }
