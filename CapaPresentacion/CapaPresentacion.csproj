@@ -219,6 +219,7 @@
     <Content Include="css\timepicker\bootstrap-timepicker.css" />
     <Content Include="css\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="GestionarAtencionPaciente.aspx" />
     <Content Include="GestionarHorarioAtencion.aspx" />
     <Content Include="GestionarPaciente.aspx" />
     <Content Include="GestionarReservaCitas.aspx" />
@@ -383,6 +384,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GestionarAtencionPaciente.aspx.cs">
+      <DependentUpon>GestionarAtencionPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionarAtencionPaciente.aspx.designer.cs">
+      <DependentUpon>GestionarAtencionPaciente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GestionarHorarioAtencion.aspx.cs">
       <DependentUpon>GestionarHorarioAtencion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
