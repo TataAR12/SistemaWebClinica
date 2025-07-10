@@ -143,13 +143,17 @@
                 </Columns>
             </asp:GridView>
         </div>
+        <br />
         <div class="row">
-           
+           <div class="col-md-12 text-center">
+               <asp:Button ID="btnReservaCita" runat="server" Text="Reserva Cita" CssClass="btn btn-primary" OnClick="btnReservarCita_Click"/>
+           </div>
         </div>
     </div>
 </div>
     </section>
-    <input id="idPaciente" type="hidden"/> 
+    <%--<input id="idPaciente" type="hidden"/>--%>
+    <asp:HiddenField ID="idPaciente" runat="server" />
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>

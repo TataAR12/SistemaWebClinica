@@ -59,5 +59,13 @@ namespace CapaPresentacion
            LlenarGridViewHorariosAtencion();
         }
 
+        protected void btnReservarCita_Click(object sender, EventArgs e)
+        {
+            //ejecutar el guardado de la reserva
+            if (!idPaciente.Value.Equals(string.Empty) && true)
+            {
+
+            }
+        }
     }
 }

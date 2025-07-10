@@ -42,7 +42,7 @@ namespace CapaPresentacion
         {
             Paciente objPaciente = new Paciente()
                 {
-                Idpaciente = Convert.ToInt32(id),
+                IdPaciente = Convert.ToInt32(id),
                 Direccion = direccion
             };
             bool ok = PacienteLN.getInstance().Actualizar(objPaciente);
@@ -62,7 +62,7 @@ namespace CapaPresentacion
         private Paciente GetEntity()
         {
             Paciente objPaciente = new Paciente();
-            objPaciente.Idpaciente = 0;
+            objPaciente.IdPaciente = 0;
             objPaciente.Nombres = txtNombres.Text;
             objPaciente.ApPaterno = txtApPaterno.Text;
             objPaciente.ApMaterno = txtApMaterno.Text;

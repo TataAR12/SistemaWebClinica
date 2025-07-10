@@ -83,7 +83,7 @@ namespace CapaAcessoDatos
                 {
                     //Crear objetos de tipo Paciente
                     Paciente objPaciente = new Paciente();
-                    objPaciente.Idpaciente = Convert.ToInt32(dr["idPaciente"].ToString());
+                    objPaciente.IdPaciente = Convert.ToInt32(dr["idPaciente"].ToString());
                     objPaciente.Nombres = dr["nombres"].ToString();
                     objPaciente.ApPaterno = dr["apPaterno"].ToString();
                     objPaciente.ApMaterno = dr["apMaterno"].ToString();
@@ -121,7 +121,7 @@ namespace CapaAcessoDatos
                 conexion = Conexion.getInstance().ConexionBD();
                 cmd = new SqlCommand("spActualizarDatosPaciente", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@prmIdPaciente", objPaciente.Idpaciente);
+                cmd.Parameters.AddWithValue("@prmIdPaciente", objPaciente.IdPaciente);
                 cmd.Parameters.AddWithValue("@prmDireccion", objPaciente.Direccion);
 
                 conexion.Open();
@@ -192,7 +192,7 @@ namespace CapaAcessoDatos
                 {
                     objPaciene = new Paciente
                     {
-                        Idpaciente = Convert.ToInt32(dr["idPaciente"].ToString()),
+                        IdPaciente = Convert.ToInt32(dr["idPaciente"].ToString()),
                         Nombres = dr["Nombres"].ToString(),
                         ApPaterno = dr["ApPaterno"].ToString(),
                         ApMaterno = dr["ApMaterno"].ToString(),
