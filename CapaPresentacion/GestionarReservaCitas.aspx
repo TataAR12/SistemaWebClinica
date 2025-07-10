@@ -2,6 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:UpdatePanel ID="upPanel" runat="server">
+        <ContentTemplate>
     <section class="content-header">
     <h1 align="center">RESERVA DE CITAS</h1>
         </section>
@@ -68,16 +70,15 @@
                     <div class="box-body">
                         <!-- INICIO CALENDARIO -->
 
-                        <div class="form-group">
-                            <label>FECHA</label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <asp:TextBox ID="txtFechaAtencion" runat="server" CssClass="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""></asp:TextBox>
+                         <div class="form-group">
+                        <label>FECHA</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
                             </div>
-                            <!-- /.input group -->
+                            <asp:TextBox ID="txtFechaAtencion" runat="server" CssClass="form-control" placeholder="dd/mm/yyyy"></asp:TextBox>
                         </div>
+                    </div>
                         
                     </div>
                     <!-- </form> -->
@@ -101,7 +102,7 @@
                     <div class="box-body">
                         <!-- <form role="form"> -->
                         <div class="input-group-">
-                            <asp:Button ID="btnBuscarHorario" runat="server" CssClass="btn btn-danger" Text="Buscar" />
+                            <asp:Button ID="btnBuscarHorario" runat="server" CssClass="btn btn-danger" Text="Buscar" OnClick="btnBuscarHorario_Click" />
                             <br />
                             <br />
                             <br />
@@ -128,7 +129,7 @@
                             <asp:Label ID="lblHoraHeader" runat="server" Text="Hora de atención"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblHora" runat="server" Text='<%# Eval("Hora") %>'></asp:Label>
+                            <asp:Label ID="lblHora" runat="server" Text='<%# Eval("Hora.hora") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
@@ -136,17 +137,25 @@
                             <asp:Label ID="lblMedicoHeader" runat="server" Text="Médico"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
-                            <asp:Label ID="lblMedicoHora" runat="server" Text='<%# Eval("Medico") %>'></asp:Label>
+                            <asp:Label ID="lblMedicoHora" runat="server" Text='<%# Eval("Medico.Nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </div>
+        <div class="row">
+           
+        </div>
     </div>
 </div>
     </section>
     <input id="idPaciente" type="hidden"/> 
+        </ContentTemplate>
+    </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
+    <script src="js/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="js/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="js/plugins/input-mask/jquery.inputmask.extensions.js"></script>
     <script src="js/reserva.js"></script>
 </asp:Content>
