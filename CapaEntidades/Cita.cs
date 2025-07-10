@@ -21,7 +21,8 @@ namespace CapaEntidades
 
         public Cita()
         {
-
+            this.Paciente = new Paciente();
+            this.Medico = new Medico();
         }
 
     }

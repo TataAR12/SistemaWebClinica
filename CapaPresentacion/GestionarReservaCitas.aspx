@@ -114,7 +114,7 @@
                <div class="row">
     <div class="col-md-12">
         <div class="table-responsive">
-            <asp:GridView ID="grdHorarioAtencion" runat="server" CssClass="table table-bordered table-hover" AutoGenerateColumns="false">
+            <asp:GridView ID="grdHorarioAtencion" runat="server" EnableViewState="true" CssClass="table table-bordered table-hover" AutoGenerateColumns="false">
                 <Columns>
                     <asp:TemplateField>
                         <HeaderTemplate>
@@ -137,6 +137,7 @@
                             <asp:Label ID="lblMedicoHeader" runat="server" Text="Médico"></asp:Label>
                         </HeaderTemplate>
                         <ItemTemplate>
+                            <asp:HiddenField ID="hfIdMedico" runat="server" Value='<%#Eval("Medico.IdMedico") %>' />
                             <asp:Label ID="lblMedicoHora" runat="server" Text='<%# Eval("Medico.Nombre") %>'></asp:Label>
                         </ItemTemplate>
                     </asp:TemplateField>
@@ -152,9 +153,12 @@
     </div>
 </div>
     </section>
-    <%--<input id="idPaciente" type="hidden"/>--%>
+    <!--<input id="idPaciente" type="hidden"/>-->
     <asp:HiddenField ID="idPaciente" runat="server" />
         </ContentTemplate>
+        <Triggers>
+<asp:AsyncPostBackTrigger ControlID="btnReservaCita" EventName="Click" />
+</Triggers>
     </asp:UpdatePanel>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">

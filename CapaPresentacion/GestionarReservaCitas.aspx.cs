@@ -62,10 +62,57 @@ namespace CapaPresentacion
         protected void btnReservarCita_Click(object sender, EventArgs e)
         {
             //ejecutar el guardado de la reserva
-            if (!idPaciente.Value.Equals(string.Empty) && true)
+            bool isSelected = HorarioAtencionSeleccionado();
+            if (!idPaciente.Value.Equals(string.Empty) && isSelected)
             {
+                Cita objCita = ObtenerCitaSeleccionada();
+               bool response = CitaLN.getInstance().RegistrarCita(objCita);
 
+                if (response)
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alerta", "<script>alert('Cita registrada correctamente.')</script", false);
+                }
+                else 
+                {
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alerta", "<script>alert('Error al registrar la cita.')</script", false);
+                }
             }
         }
+        private bool HorarioAtencionSeleccionado()
+        {
+            foreach (GridViewRow row in grdHorarioAtencion.Rows)
+            {
+                CheckBox chkHorario = (row.FindControl("chkSeleccionar") as CheckBox);
+                if (chkHorario.Checked)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+
+        }
+
+        private Cita ObtenerCitaSeleccionada()
+        {
+            Cita objCita = new Cita();
+            foreach (GridViewRow row in grdHorarioAtencion.Rows)
+            {
+                CheckBox chkHorario = (row.FindControl("chkSeleccionar") as CheckBox);
+                if (chkHorario.Checked)
+                {
+                    objCita.Hora = (row.FindControl("lblHora") as Label).Text;
+                    objCita.FechaReserva = DateTime.Now;
+                    objCita.Paciente.IdPaciente = Convert.ToInt32(idPaciente.Value);
+
+                    string idMedico = (row.FindControl("hfIdMedico") as HiddenField).Value;
+                    objCita.Medico.IdMedico = Convert.ToInt32(idMedico);
+
+                    break;
+                }
+            }
+              return objCita;
+        }
+
     }
 }

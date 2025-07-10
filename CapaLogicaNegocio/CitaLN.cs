@@ -23,11 +23,11 @@ namespace CapaLogicaNegocio
             return citaLN;
         }
         #endregion
-        public bool RegistrarPaciente(Cita objCita)
+        public bool RegistrarCita(Cita objCita)
         {
             try
             {
-                return CitaDAO.getInstance().RegistrarPaciente(objCita);
+                return CitaDAO.getInstance().RegistrarCita(objCita);
             }
             catch (Exception)
             {

@@ -24,7 +24,7 @@ namespace CapaAcessoDatos
         }
         #endregion
 
-        public bool RegistrarPaciente(Cita objCita)
+        public bool RegistrarCita(Cita objCita)
         {
             SqlConnection con = null;
             SqlCommand cmd = null;
