@@ -63,12 +63,11 @@
         </section>
         <!--SELECCIONAR HORARIO DE ATENCION -->
         <div class="row">
-            <!--left column -->
             <div class="col-md-6">
                 <div class="box box-primary">
-                    <!-- <form role="form"> -->
                     <div class="box-body">
                         <!-- INICIO CALENDARIO -->
+
                         <div class="form-group">
                             <label>FECHA</label>
                             <div class="input-group">
@@ -79,8 +78,7 @@
                             </div>
                             <!-- /.input group -->
                         </div>
-                        <!-- /.form group -->
-                        <!-- FIN CALENDARIO-->
+                        
                     </div>
                     <!-- </form> -->
                 </div>
@@ -112,8 +110,40 @@
                     <!-- </form> -->
                 </div>
             </div>
-
+               <div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <asp:GridView ID="grdHorarioAtencion" runat="server" CssClass="table table-bordered table-hover" AutoGenerateColumns="false">
+                <Columns>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <asp:Label ID="lblSeleccionarHeader" runat="server" Text="Seleccionar"></asp:Label>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkSeleccionar" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <asp:Label ID="lblHoraHeader" runat="server" Text="Hora de atención"></asp:Label>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblHora" runat="server" Text='<%# Eval("Hora") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <HeaderTemplate>
+                            <asp:Label ID="lblMedicoHeader" runat="server" Text="Médico"></asp:Label>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <asp:Label ID="lblMedicoHora" runat="server" Text='<%# Eval("Medico") %>'></asp:Label>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
         </div>
+    </div>
+</div>
     </section>
     <input id="idPaciente" type="hidden"/> 
 </asp:Content>
