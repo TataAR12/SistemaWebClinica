@@ -12,6 +12,9 @@ namespace CapaPresentacion
 {
     public partial class GestionarAtencionPaciente : System.Web.UI.Page
     {
+
+        private static String COMMAND_REGISTER = "Registrar";
+        private static String COMMAND_CANCEL = "Cancelar";
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -26,5 +29,20 @@ namespace CapaPresentacion
             dlAtencionMedica.DataSource = ListaCitas;
             dlAtencionMedica.DataBind();
         }
+
+        protected void dlAtencionMedica_ItemCommand(object source, DataListCommandEventArgs e)
+        {
+            if (e.CommandName == COMMAND_REGISTER)
+
+            {
+                //Realizar el registro de la atención
+            }
+            else if(e.CommandName == COMMAND_CANCEL)
+            {
+                //Realizar la cancelación de la reserva de cita
+            }
+            
+        }
+
     }
 }

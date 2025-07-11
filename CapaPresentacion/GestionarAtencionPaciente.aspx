@@ -36,7 +36,7 @@
     </section>
 
     <section class="content invoice">
-        <asp:DataList ID="dlAtencionMedica" runat="server" CssClass="tabla table-striped" RepeatColumns="1">
+        <asp:DataList ID="dlAtencionMedica" runat="server" CssClass="tabla table-striped" RepeatColumns="1" OnItemCommand="dlAtencionMedica_ItemCommand">
             <ItemTemplate>
                 <table style="margin-bottom: 30px;">
                     <tr>
@@ -54,8 +54,8 @@
                     </tr>
                     <tr>
                         <td>
-                            <asp:Button ID="btnAtencion" runat="server" CssClass="btn btn-primary" Text="Realizar Atención" />
-                            <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-danger" Text="Cancelar" OnClientClick="return confirm('¿Está seguro que desea cancelar la cita?');" />
+                            <asp:Button ID="btnAtencion" runat="server" CssClass="btn btn-primary" Text="Realizar Atención" CommandName="Registrar" />
+                            <asp:Button ID="btnCancelar" runat="server" CssClass="btn btn-danger" Text="Cancelar" CommandName="Cancelar" OnClientClick="return confirm('¿Está seguro que desea cancelar la cita?');" />
                         </td>
                     </tr>
                     <tr>
