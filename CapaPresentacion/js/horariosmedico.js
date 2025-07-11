@@ -99,7 +99,7 @@ $("#btnAgregar").on("click", function (event) {
 
     var fecha = $("#txtFecha").val();
     var hora = $("#txtHoraInicio").val();
-    var idmedico = $("#txtIdMedico").val();
+    var idmedico = $("#txtMedico").val();
 
     if (fecha.length > 0 && hora.length > 0 && idmedico > 0) {
         var obj = JSON.stringify({ fecha: fecha, hora: hora, idmedico: idmedico });

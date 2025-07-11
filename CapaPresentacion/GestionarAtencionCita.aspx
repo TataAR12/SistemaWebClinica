@@ -44,7 +44,7 @@
                 <div class="center-block">
                     <div class="col-sm-12 invoice-col">
                         <br />
-                        <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn btn-block btn-primary"/>
+                        <asp:Button ID="btnRegistrar" runat="server" Text="Registrar" CssClass="btn btn-block btn-primary" OnClick="btnRegistrar_Click" />
                         <br />
                     </div>
                 </div>
@@ -52,6 +52,7 @@
 
         </div>
     </section>
+    <asp:HiddenField ID="hfIdPaciente" runat="server" Visible="false" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="footer" runat="server">
 </asp:Content>

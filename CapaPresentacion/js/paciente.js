@@ -7,7 +7,7 @@ function addRowDT(data) {
 
     for (var i = 0; i < data.length; i++) {
         tabla.row.add([
-            data[i].Idpaciente,
+            data[i].IdPaciente,
             data[i].Nombres,
             data[i].ApPaterno + " " + data[i].ApMaterno,
             (data[i].Sexo === 'M') ? "Masculino" : "Femenino",
@@ -50,7 +50,9 @@ function updateDataAjax() {
         dataType: 'json',
         success: function (response) {
             if (response.d) {
+                $('#imodal').modal('hide');
                 alert("Datos actualizados correctamente.");
+                sendDataAjax();
             } else {
                 alert("Error al actualizar los datos."); }
         },
@@ -72,6 +74,7 @@ function deleteDataAjax(data) {
         success: function (response) {
             if (response.d) {
                 alert("Datos actualizados correctamente.");
+                sendDataAjax();
             } else {
                 alert("Error al actualizar los datos.");
             }

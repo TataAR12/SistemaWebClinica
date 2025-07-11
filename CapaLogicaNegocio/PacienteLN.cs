@@ -73,15 +73,26 @@ namespace CapaLogicaNegocio
 
         public Paciente BuscarPacienteDNI(string dni)
         {
-            try 
+            try
             {
                 return PacienteDAO.getInstance().BuscarPacienteDNI(dni);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
-    }
 
+        public Paciente BuscarPacienteIdCita(Int32 idCita)
+        {
+            try
+            {
+                return PacienteDAO.getInstance().BuscarPacienteIdCita(idCita);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
 }

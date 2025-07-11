@@ -67,15 +67,15 @@ namespace CapaPresentacion
             if (!idPaciente.Value.Equals(string.Empty) && isSelected)
             {
                 Cita objCita = ObtenerCitaSeleccionada();
-               bool response = CitaLN.getInstance().RegistrarCita(objCita);
+                bool response = CitaLN.getInstance().RegistrarCita(objCita);
 
                 if (response)
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alerta", "<script>alert('Cita registrada correctamente.')</script", false);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alerta", "alert('Cita registrada correctamente.');", true);
                 }
-                else 
+                else
                 {
-                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alerta", "<script>alert('Error al registrar la cita.')</script", false);
+                    ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alerta", "alert('Error al registrar la cita.');", true);
                 }
             }
         }
