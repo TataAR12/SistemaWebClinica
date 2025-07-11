@@ -45,6 +45,7 @@
                         </td>
                         <td>
                             <span class="etiqueta"><span class="info-paciente">ID Cita:</span> <asp:Label ID="lblIdCita" runat="server" Text='<%#Eval("IdCita") %>'></asp:Label></span>
+                            <asp:HiddenField ID="hdIdCita" runat="server" Value='<%#Eval("IdCita") %>' Visible="false" />
                             <span class="etiqueta"><span class="info-paciente">Nombres:</span> <asp:Label ID="lblNombres" runat="server" Text='<%#Eval("Paciente.Nombres") %>'></asp:Label></span>
                             <span class="etiqueta"><span class="info-paciente">Primer Apellido:</span> <asp:Label ID="lblApellidoPaterno" runat="server" Text='<%#Eval("Paciente.ApPaterno") %>'></asp:Label></span>
                             <span class="etiqueta"><span class="info-paciente">Segundo Apellido:</span> <asp:Label ID="lblApellidoMaterno" runat="server" Text='<%#Eval("Paciente.ApMaterno") %>'></asp:Label></span>

@@ -36,6 +36,9 @@ namespace CapaPresentacion
 
             {
                 //Realizar el registro de la atención
+                //Redirecion a la pagina de gestionarAtencion 
+                String IdCita = (e.Item.FindControl("hdIdCita") as HiddenField).Value;
+                Response.Redirect("GestionarAtencionCita.aspx?idcita="+IdCita);
             }
             else if(e.CommandName == COMMAND_CANCEL)
             {
